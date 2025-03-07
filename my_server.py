@@ -58,7 +58,7 @@ app = FastAPI()
 
 
 @app.post("/generate_from_text")
-async def text_to_3d(prompt: str = Body(), steps: int = None, seed: int = None):
+async def text_to_3d(prompt: str = Body(), steps: int = 25, seed: int = 0):
     start = time.time()
 
     output_folder = os.path.join(args.save_folder, "text_to_3d")
