@@ -58,7 +58,7 @@ app = FastAPI()
 
 
 @app.post("/generate_from_text")
-async def text_to_3d(prompt: str = Body(), steps: int = 25, seed: int = 0):
+async def text_to_3d(prompt: str = '', steps: int = 25, seed: int = 0):
     start = time.time()
 
     output_folder = os.path.join(args.save_folder, "text_to_3d")
@@ -66,6 +66,7 @@ async def text_to_3d(prompt: str = Body(), steps: int = 25, seed: int = 0):
 
     url = "http://localhost:9072/text_to_image"
     payload = {"prompt": prompt, "steps": steps, "seed": seed}
+    print(f"get params:{payload}")
 
     response = requests.post(url, json=payload)
     if response.status_code != 200:
