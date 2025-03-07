@@ -1,4 +1,6 @@
 import os
+import time
+
 # os.environ['ATTN_BACKEND'] = 'xformers'   # Can be 'flash-attn' or 'xformers', default is 'flash-attn'
 os.environ['SPCONV_ALGO'] = 'native'        # Can be 'native' or 'auto', default is 'auto'.
                                             # 'auto' is faster but will do benchmarking at the beginning.
@@ -14,6 +16,8 @@ pipeline = TrellisImageTo3DPipeline.from_pretrained("JeffreyXiang/TRELLIS-image-
 pipeline.cuda()
 input_folder = os.path.join("../neural-subnet/generate/outputs", "text_to_3d")
 output_folder = os.path.join("../neural-subnet/validation/validation/results", "173")
+
+start = time.time()
 # Load an image
 image = Image.open(os.path.join(input_folder, "mesh.png"))
 image.save(os.path.join(output_folder, "preview.png"))
@@ -53,6 +57,7 @@ glb = postprocessing_utils.to_glb(
     texture_size=1024,      # Size of the texture used for the GLB
 )
 glb.export(os.path.join(output_folder, "output.glb"))
+print(f"Generation time: {time.time() - start}")
 
 # Save Gaussians as PLY files
 # outputs['gaussian'][0].save_ply("sample.ply")
