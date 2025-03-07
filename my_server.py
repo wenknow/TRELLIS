@@ -2,10 +2,9 @@ import argparse
 import os
 import time
 import requests
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Request
 import uvicorn
 
-import imageio
 from PIL import Image
 from trellis.pipelines import TrellisImageTo3DPipeline
 from trellis.utils import render_utils, postprocessing_utils
@@ -58,17 +57,17 @@ app = FastAPI()
 
 
 @app.post("/generate_from_text")
-async def text_to_3d(prompt: str = '', steps: int = 25, seed: int = 0):
+async def text_to_3d(request: Request):
     start = time.time()
+    params = await request.json()
+    print(f"get params:{params}")
 
     output_folder = os.path.join(args.save_folder, "text_to_3d")
     os.makedirs(output_folder, exist_ok=True)
 
     url = "http://localhost:9072/text_to_image"
-    payload = {"prompt": prompt, "steps": steps, "seed": seed}
-    print(f"get params:{payload}")
 
-    response = requests.post(url, json=payload)
+    response = requests.post(url, json=params)
     if response.status_code != 200:
         print(f"err to request text_to_image. {response.text}")
         return {"success": False, "path": output_folder}
