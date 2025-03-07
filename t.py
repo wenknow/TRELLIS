@@ -14,13 +14,13 @@ from trellis.utils import render_utils, postprocessing_utils
 # Load a pipeline from a model folder or a Hugging Face model hub.
 pipeline = TrellisImageTo3DPipeline.from_pretrained("JeffreyXiang/TRELLIS-image-large")
 pipeline.cuda()
-input_folder = os.path.join("../neural-subnet/generate/outputs", "text_to_3d")
+# input_folder = os.path.join("../neural-subnet/generate/outputs", "text_to_3d")
 output_folder = os.path.join("../neural-subnet/validation/validation/results", "173")
 
 start = time.time()
 # Load an image
-image = Image.open(os.path.join(input_folder, "mesh.png"))
-image.save(os.path.join(output_folder, "preview.png"))
+image = Image.open(os.path.join(output_folder, "preview.png"))
+# image.save(os.path.join(output_folder, "preview.png"))
 # Run the pipeline
 outputs = pipeline.run(
     image,
