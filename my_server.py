@@ -14,7 +14,7 @@ pipeline = TrellisImageTo3DPipeline.from_pretrained("JeffreyXiang/TRELLIS-image-
 pipeline.cuda()
 
 
-def img_to_3d(image_path, output_glb):
+async def img_to_3d(image_path, output_glb):
     image = Image.open(image_path)
     # image.save(os.path.join(output_folder, "preview.png"))
     # Run the pipeline
@@ -73,7 +73,7 @@ async def text_to_3d(request: Request):
         return {"success": False, "path": output_folder}
     print(f"response: {response.text}")
 
-    img_to_3d(os.path.join(output_folder, "mesh.png"), os.path.join(output_folder, "mesh.glb"))
+    await img_to_3d(os.path.join(output_folder, "mesh.png"), os.path.join(output_folder, "mesh.glb"))
 
     print(f"Successfully generated: {output_folder}")
     print(f"Generation time: {time.time() - start}")
