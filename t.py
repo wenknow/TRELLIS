@@ -26,14 +26,14 @@ outputs = pipeline.run(
     image,
     seed=1,
     # Optional parameters
-    # sparse_structure_sampler_params={
-    #     "steps": 12,
-    #     "cfg_strength": 7.5,
-    # },
-    # slat_sampler_params={
-    #     "steps": 12,
-    #     "cfg_strength": 3,
-    # },
+    sparse_structure_sampler_params={
+        "steps": 12,
+        "cfg_strength": 7.5,
+    },
+    slat_sampler_params={
+        "steps": 12,
+        "cfg_strength": 3,
+    },
 )
 # outputs is a dictionary containing generated 3D assets in different formats:
 # - outputs['gaussian']: a list of 3D Gaussians
