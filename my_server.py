@@ -36,7 +36,7 @@ async def img_to_3d(image_path, output_glb):
         outputs['mesh'][0],
         # Optional parameters
         simplify=0.85,  # Ratio of triangles to remove in the simplification process
-        texture_size=2048,  # Size of the texture used for the GLB
+        texture_size=1024,  # Size of the texture used for the GLB
     )
     glb.export(output_glb)
 
