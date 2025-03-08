@@ -23,11 +23,11 @@ async def img_to_3d(image_path, output_glb):
         seed=1,
         # Optional parameters
         sparse_structure_sampler_params={
-            "steps": 12,
+            "steps": 30,
             "cfg_strength": 7.5,
         },
         slat_sampler_params={
-            "steps": 12,
+            "steps": 30,
             "cfg_strength": 3,
         },
     )
@@ -35,8 +35,8 @@ async def img_to_3d(image_path, output_glb):
         outputs['gaussian'][0],
         outputs['mesh'][0],
         # Optional parameters
-        simplify=0.95,  # Ratio of triangles to remove in the simplification process
-        texture_size=1024,  # Size of the texture used for the GLB
+        simplify=0.85,  # Ratio of triangles to remove in the simplification process
+        texture_size=4096,  # Size of the texture used for the GLB
     )
     glb.export(output_glb)
 
